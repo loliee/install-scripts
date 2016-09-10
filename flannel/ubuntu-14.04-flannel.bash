@@ -4,14 +4,15 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
-FLANNEL_VERSION=${FLANNEL_VERSION:-"0.5.5"}
+FLANNEL_VERSION=${FLANNEL_VERSION:-"0.6.1"}
 echo "Prepare flannel ${FLANNEL_VERSION} release ..."
 grep -q "^${FLANNEL_VERSION}\$" /root/.flannel 2>/dev/null || {
   curl -L -o flannel.tar.gz \
-    "https://github.com/coreos/flannel/releases/download/v${FLANNEL_VERSION}/flannel-${FLANNEL_VERSION}-linux-amd64.tar.gz"
-  tar xzf flannel.tar.gz && rm -rf flannel.tar.gz
-  cp "flannel-${FLANNEL_VERSION}/flanneld" /usr/local/bin/
-  rm -rf "flannel-${FLANNEL_VERSION}"
+    "https://github.com/coreos/flannel/releases/download/v${FLANNEL_VERSION}/flannel-v${FLANNEL_VERSION}-linux-amd64.tar.gz"
+  mkdir -p "flannel-v${FLANNEL_VERSION}-linux-amd64/flanneld"
+  tar xzf flannel.tar.gz -C  "flannel-v${FLANNEL_VERSION}-linux-amd64" && rm -rf flannel.tar.gz
+  cp "flannel-v${FLANNEL_VERSION}-linux-amd64/flanneld" /usr/local/bin/
+  rm -rf "flannel-v${FLANNEL_VERSION}-linux-amd64"
   echo "${FLANNEL_VERSION}" > /root/.flannel
 }
 

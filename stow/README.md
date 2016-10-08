@@ -1,18 +1,18 @@
-# flannel
+# stow
 
-Install [flannel](https://github.com/coreos/flannel).
+Install [stow](https://www.gnu.org/software/stow/).
 
 ## Dependencies
 
 - `curl`
-- `upstart`
+- `build-essential`
 
 ## Variables
 
 name             | default   | description
 -----------------|-----------|----------------------------------
-`FLANNEL_VERSION` | `0.6.2` | version to install.
+`STOW_VERSION` | `2.2.2` | version to install.
 
-## Licence
+## License
 
 MIT © [Maxime Loliée](https://github.com/loliee/)

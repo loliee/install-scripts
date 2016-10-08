@@ -4,22 +4,26 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
-export KUBE_VERSION=${KUBE_VERSION:-}
+export KUBE_VERSION=${KUBE_VERSION:-'1.3.8'}
 
 # Then the role variable defines the role of above machine in the same order, “ai” stands for machine acts as both master
 # and node, “a” stands for master, “i” stands for node.
 export KUBE_ROLE=${KUBE_ROLE:-'ai'}
 
+export DEBIAN_FRONTEND=noninteractive
+
+# Ensure version directory exists
+mkdir -p /root/.versions
+
+# Ensure curl is installed
+hash curl &>/dev/null || apt-get install -y curl
+
+if [ -f "/etc/debian_version" ]; then
+  apt-get install -y upstart
+fi
+
 function get_latest_version_number {
-  local -r latest_url="https://storage.googleapis.com/kubernetes-release/release/stable.txt"
-  if [[ $(which wget) ]]; then
-    wget -qO- ${latest_url}
-  elif [[ $(which curl) ]]; then
-    curl -Ss ${latest_url}
-  else
-    echo "Couldn't find curl or wget.  Bailing out." >&2
-    exit 4
-  fi
+  curl -Ss "https://storage.googleapis.com/kubernetes-release/release/stable.txt"
 }
 
 if [[ -z "$KUBE_VERSION" ]]; then
@@ -27,13 +31,13 @@ if [[ -z "$KUBE_VERSION" ]]; then
 fi
 
 echo "Prepare kubernetes ${KUBE_VERSION} release ..."
-grep -q "^${KUBE_VERSION}\$" /root/.kubernetes 2>/dev/null || {
+grep -q "^${KUBE_VERSION}\$" /root/.versions/kubernetes 2>/dev/null || {
   mkdir -p /etc/kubernetes/manifests
   curl -L -o kubernetes.tar.gz \
     "https://github.com/kubernetes/kubernetes/releases/download/v${KUBE_VERSION}/kubernetes.tar.gz"
   tar xzf kubernetes.tar.gz && rm -f kubernetes.tar.gz
   pushd kubernetes/server
-  tar xzf kubernetes-server-linux-amd64.tar.gz && rm -f kubernetes-server-linux-amd64.tar.gz
+    tar xzf kubernetes-server-linux-amd64.tar.gz && rm -f kubernetes-server-linux-amd64.tar.gz
   popd
 
   if [[ "${KUBE_ROLE}" == *"a"* ]]; then
@@ -48,7 +52,7 @@ grep -q "^${KUBE_VERSION}\$" /root/.kubernetes 2>/dev/null || {
        kubernetes/server/kubernetes/server/bin/kube-proxy /usr/local/bin/
   fi
   rm -rf kubernetes
-  echo "${KUBE_VERSION}" > /root/.kubernetes
+  echo "${KUBE_VERSION}" > /root/.versions/kubernetes
 }
 
 # Master - Api server

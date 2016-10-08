@@ -1,18 +1,19 @@
-# flannel
+# tmux
 
-Install [flannel](https://github.com/coreos/flannel).
+Install [tmux](https://tmux.github.io/).
 
 ## Dependencies
 
 - `curl`
-- `upstart`
+- `libevent-dev`
+- `libncurses5-dev`
 
 ## Variables
 
 name             | default   | description
 -----------------|-----------|----------------------------------
-`FLANNEL_VERSION` | `0.6.2` | version to install.
+`TMUX_VERSION` | `2.3` | version to install.
 
-## Licence
+## License
 
 MIT © [Maxime Loliée](https://github.com/loliee/)

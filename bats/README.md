@@ -1,18 +1,17 @@
-# flannel
+# bats
 
-Install [flannel](https://github.com/coreos/flannel).
+Install [bats](https://github.com/sstephenson/bats).
 
 ## Dependencies
 
-- `curl`
-- `upstart`
+n/a
 
 ## Variables
 
 name             | default   | description
 -----------------|-----------|----------------------------------
-`FLANNEL_VERSION` | `0.6.2` | version to install.
+`BATS_VERSION` | `0.4.0` | version to install.
 
-## Licence
+## License
 
 MIT © [Maxime Loliée](https://github.com/loliee/)

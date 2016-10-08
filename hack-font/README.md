@@ -1,18 +1,18 @@
-# flannel
+# hack-font
 
-Install [flannel](https://github.com/coreos/flannel).
+Install [hack-font](https://github.com/chrissimpkins/Hack).
 
 ## Dependencies
 
 - `curl`
-- `upstart`
+- `unzip`
 
 ## Variables
 
 name             | default   | description
 -----------------|-----------|----------------------------------
-`FLANNEL_VERSION` | `0.6.2` | version to install.
+`HACK_VERSION` | `2.020` | version to install.
 
-## Licence
+## License
 
 MIT © [Maxime Loliée](https://github.com/loliee/)

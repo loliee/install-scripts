@@ -2,8 +2,16 @@
 
 Install [etcd](https://github.com/coreos/etcd).
 
+## Dependencies
+
+- `upstart`
+
 ## Variables
 
-### `ETCD_VERSION`
+name             | default   | description
+-----------------|-----------|----------------------------------
+`ETCD_VERSION` | `2.3.7` | version to install.
 
-Default to `3.0.4`.
+## License
+
+MIT © [Maxime Loliée](https://github.com/loliee/)

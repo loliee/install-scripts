@@ -1,16 +1,18 @@
 # kubernetes
 
-Install [kubernetes](http://kubernetes.io/docs/getting-started-guides/).
+Install [kubernetes](https://github.com/kubernetes/kubernetes).
+
+## Dependencies
+
+- `curl`
+- `upstart`
 
 ## Variables
 
-### `KUBE_VERSION`
+name             | default   | description
+-----------------|-----------|----------------------------------
+`KUBERNETES_VERSION` | `1.3.8` | version to install.
 
-Default to [check here](https://storage.googleapis.com/kubernetes-release/release/stable.txt).
+## License
 
-### `KUBE_ROLE`
-
-Then the role variable defines the role of above machine in the same order, “ai” stands for machine acts as both master 
-and node, “a” stands for master, “i” stands for node.
-
-Default to `ai`.
+MIT © [Maxime Loliée](https://github.com/loliee/)

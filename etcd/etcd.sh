@@ -4,16 +4,29 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
-ETCD_VERSION=${ETCD_VERSION:-"2.3.7"}
+ETCD_VERSION=${ETCD_VERSION:-'2.3.7'}
 ETCD="etcd-v${ETCD_VERSION}-linux-amd64"
+
+export DEBIAN_FRONTEND=noninteractive
+
+# Ensure version directory exists
+mkdir -p /root/.versions
+
+# Ensure curl is installed
+hash curl &>/dev/null || apt-get install -y curl
+
+if [ -f "/etc/debian_version" ]; then
+  apt-get install -y upstart
+fi
+
 echo "Prepare etcd ${ETCD_VERSION} release ..."
-grep -q "^${ETCD_VERSION}" /root/.etcd 2>/dev/null || {
+grep -q "^${ETCD_VERSION}" /root/.versions/etcd 2>/dev/null || {
   curl -L -o etcd.tar.gz \
     "https://github.com/coreos/etcd/releases/download/v${ETCD_VERSION}/${ETCD}.tar.gz"
   tar xzf etcd.tar.gz && rm -f etcd.tar.gz
   cp "${ETCD}/etcd" "${ETCD}/etcdctl" /usr/local/bin/
   rm -rf "${ETCD}"
-  echo "${ETCD_VERSION}" > /root/.etcd
+  echo "${ETCD_VERSION}" > /root/.versions/etcd
 }
 
 if [[ ! -f /etc/init/etcd.conf ]]; then

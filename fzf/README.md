@@ -1,18 +1,20 @@
-# flannel
+# fzf
 
-Install [flannel](https://github.com/coreos/flannel).
+Install [fzf](https://github.com/junegunn/fzf).
 
 ## Dependencies
 
-- `curl`
-- `upstart`
+- `git`
+- `golang`
+- `build-essential`
+- `libncurses5-dev`
 
 ## Variables
 
 name             | default   | description
 -----------------|-----------|----------------------------------
-`FLANNEL_VERSION` | `0.6.2` | version to install.
+`FZF_VERSION` | `0.15.4` | version to install.
 
-## Licence
+## License
 
 MIT © [Maxime Loliée](https://github.com/loliee/)

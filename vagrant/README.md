@@ -1,18 +1,17 @@
-# flannel
+# vagrant
 
-Install [flannel](https://github.com/coreos/flannel).
+Install [vagrant](https://github.com/mitchellh/vagrant).
 
 ## Dependencies
 
 - `curl`
-- `upstart`
 
 ## Variables
 
 name             | default   | description
 -----------------|-----------|----------------------------------
-`FLANNEL_VERSION` | `0.6.2` | version to install.
+`VAGRANT_VERSION` | `1.8.5` | version to install.
 
-## Licence
+## License
 
 MIT © [Maxime Loliée](https://github.com/loliee/)

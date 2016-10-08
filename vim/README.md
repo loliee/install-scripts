@@ -1,18 +1,19 @@
-# flannel
+# vim
 
-Install [flannel](https://github.com/coreos/flannel).
+Install [vim](http://www.vim.org/).
 
 ## Dependencies
 
 - `curl`
-- `upstart`
+- `build-essential`
+- `libncurses5-dev`
 
 ## Variables
 
 name             | default   | description
 -----------------|-----------|----------------------------------
-`FLANNEL_VERSION` | `0.6.2` | version to install.
+`VIM_VERSION` | `8.0.0022` | version to install.
 
-## Licence
+## License
 
 MIT © [Maxime Loliée](https://github.com/loliee/)

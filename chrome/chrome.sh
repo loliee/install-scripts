@@ -5,7 +5,7 @@ set -o pipefail
 set -o nounset
 
 export DEBIAN_FRONTEND=noninteractive
-
+apt-get install -y gnupg2
 # Chrome
 if [[ ! -f /etc/apt/sources.list.d/google-chrome.list ]]; then
   echo 'deb http://dl.google.com/linux/chrome/deb/ stable main' > /etc/apt/sources.list.d/google-chrome.list

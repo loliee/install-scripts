@@ -4,7 +4,8 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
-CUSER=${CUSER:-'root'}
+CUSER=${CUSER:-$USER}
+CHOME=${CHOME:-$HOME}
 CHRUBY_VERSION=${CHRUBY_VERSION:-'0.3.9'}
 GEM_LIST=${GEM_LIST:-}
 RUBY_VERSION=${RUBY_VERSION:-'2.3.1'}
@@ -67,16 +68,12 @@ grep -q "^${INSTALL_RUBY_VERSION}" /root/.versions/install-ruby &>/dev/null || {
       RUBIES=(
         $RUBY_VERSION
       )
-      if [[ ${CUSER} == 'root' ]]; then
-        user_home='/root'
-      else
-        user_home="/home/${CUSER}"
-      fi
       for ruby in "${RUBIES[@]}"; do
-        ruby-install --no-reinstall --rubies-dir "${user_home}/.rubies" \
+        ruby-install --no-reinstall --rubies-dir "${CHOME}/.rubies" \
         ruby "$ruby"
       done
-      echo "${RUBIES[@]:(-1)}" > "${user_home}/.ruby-version"
+      echo "${RUBIES[@]:(-1)}" > "${CHOME}/.ruby-version"
+      chown -R "${CUSER}." "${CHOME}/.rubies" "${CHOME}/.ruby-version"
       echo "${INSTALL_RUBY_VERSION}" >/root/.versions/install-ruby
     popd &>/dev/null
   popd &>/dev/null

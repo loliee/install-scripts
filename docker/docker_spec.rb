@@ -1,7 +1,7 @@
 require_relative '../tests/spec_helper'
 
-docker_version = '1.12'
-docker_compose_version = '1.8'
+docker_version = '18.03'
+docker_compose_version = '1.16'
 cname = ENV['container_name']
 
 describe command("docker exec #{cname} docker --version") do

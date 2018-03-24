@@ -4,8 +4,8 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
-DOCKER_VERSION=${DOCKER_VERSION:-'1.12.1'}
-DOCKER_COMPOSE_VERSION=${DOCKER_COMPOSE_VERSION:-'1.8.0'}
+DOCKER_VERSION=${DOCKER_VERSION:-'17.07.0-ce'}
+DOCKER_COMPOSE_VERSION=${DOCKER_COMPOSE_VERSION:-'1.16.1'}
 
 export DEBIAN_FRONTEND=noninteractive
 
@@ -37,7 +37,7 @@ grep -q "^${DOCKER_VERSION}" /root/.versions/docker &>/dev/null || {
   apt-get purge lxc-docker &>/dev/null || true
 
   # Ubuntu
-  if [[ $(lsb_release -c --short) == 'trusty' ]]; then
+  if [[ "$(lsb_release -c --short)" == 'trusty' ]]; then
     echo 'docker detected OS "Ubuntu"'
 
     if [[ ! -f /etc/apt/sources.list.d/docker.list ]]; then
@@ -55,21 +55,19 @@ grep -q "^${DOCKER_VERSION}" /root/.versions/docker &>/dev/null || {
   elif [ -f "/etc/debian_version" ]; then
     echo 'docker detected OS "Debian"'
 
+    # shellcheck disable=SC1091
     if [[ ! -f /etc/apt/sources.list.d/docker.list ]]; then
-      echo "deb https://apt.dockerproject.org/repo debian-jessie main" >> /etc/apt/sources.list.d/docker.list
+      curl -fsSL "https://download.docker.com/linux/$(. /etc/os-release; echo "$ID")/gpg" | sudo apt-key add -
+      sudo add-apt-repository \
+           "deb [arch=amd64] https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") \
+              $(lsb_release -cs) \
+                 stable"
     fi
     apt-get install -y linux-headers-amd64
   fi
 
   apt-get update
-  apt-get install -y -f docker-engine
-
-  is_loop_device=$(ls /dev/loop* &>/dev/null; echo $?)
-  if [[ "$is_loop_device" != "0" ]]; then
-    for i in {0..6}; do
-      mknod -m0660 /dev/loop$i b 7 $i
-    done
-  fi
+  apt-get install -y docker-ce
   echo "${DOCKER_VERSION}" >/root/.versions/docker
 }
 

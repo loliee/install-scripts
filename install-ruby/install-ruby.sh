@@ -48,6 +48,7 @@ grep -q "^${CHRUBY_VERSION}" /root/.versions/chruby &>/dev/null || {
   echo "${CHRUBY_VERSION}" >/root/.versions/chruby
 }
 
+# shellcheck disable=SC2206
 grep -q "^${INSTALL_RUBY_VERSION}" /root/.versions/install-ruby &>/dev/null || {
   echo "--> install install-ruby v${INSTALL_RUBY_VERSION}..."
   if [[ ! -f "/tmp/install-ruby-${INSTALL_RUBY_VERSION}.tar.gz" ]]; then
@@ -82,6 +83,7 @@ grep -q "^${INSTALL_RUBY_VERSION}" /root/.versions/install-ruby &>/dev/null || {
   popd &>/dev/null
 }
 
+# shellcheck disable=SC2206
 if [[ ! -z $GEM_LIST ]]; then
   gem_list_array=(${GEM_LIST//,/ })
   for i in "${!gem_list_array[@]}"; do

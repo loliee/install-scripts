@@ -7,7 +7,7 @@ services:
   - docker
 
 env:
-  - DISTRIB=debian:jessie
+  - DISTRIB=debian:stretch
   - DISTRIB=ubuntu:trusty
 
 install:

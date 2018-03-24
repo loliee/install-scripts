@@ -5,7 +5,7 @@ set -o pipefail
 set -o nounset
 
 LIMIT=${LIMIT:-''}
-DISTRIB=${DISTRIB-'debian:jessie'}
+DISTRIB=${DISTRIB-'debian:stretch'}
 
 export SPEC_OPTS='--format documentation --color'
 

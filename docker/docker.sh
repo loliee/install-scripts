@@ -18,6 +18,9 @@ hash git &>/dev/null || apt-get install -y git
 # Ensure curl is installed
 hash curl &>/dev/null || apt-get install -y curl
 
+# Ensure gpg2 is installed
+gpg --version &>/dev/null || apt-get install -y gpg2
+
 # Ensure dependencies are installed
 apt-get install -y \
   apt-transport-https \

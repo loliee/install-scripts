@@ -4,7 +4,7 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
-DOCKER_VERSION=${DOCKER_VERSION:-'17.07.0-ce'}
+DOCKER_VERSION=${DOCKER_VERSION:-'18.03.0-ce'}
 DOCKER_COMPOSE_VERSION=${DOCKER_COMPOSE_VERSION:-'1.16.1'}
 
 export DEBIAN_FRONTEND=noninteractive
@@ -55,7 +55,7 @@ grep -q "^${DOCKER_VERSION}" /root/.versions/docker &>/dev/null || {
   elif [ -f "/etc/debian_version" ]; then
     echo 'docker detected OS "Debian"'
 
-    # shellcheck disable=SC1091
+  # shellcheck disable=SC1091
     if [[ ! -f /etc/apt/sources.list.d/docker.list ]]; then
       curl -fsSL "https://download.docker.com/linux/$(. /etc/os-release; echo "$ID")/gpg" | sudo apt-key add -
       sudo add-apt-repository \

@@ -4,7 +4,7 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
-TMUX_VERSION=${TMUX_VERSION:-'2.3'}
+TMUX_VERSION=${TMUX_VERSION:-'2.6'}
 
 # Ensure version directory exists
 mkdir -p /root/.versions
